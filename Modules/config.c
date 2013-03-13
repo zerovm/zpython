@@ -38,6 +38,25 @@ extern PyObject* PyInit__locale(void);
 extern PyObject* PyInit__io(void);
 extern PyObject* PyInit_zipimport(void);
 extern PyObject* PyInit__symtable(void);
+extern PyObject* PyInit_array(void);
+extern PyObject* PyInit_cmath(void);
+extern PyObject* PyInit_math(void);
+extern PyObject* PyInit__struct(void);
+extern PyObject* PyInit__weakref(void);
+extern PyObject* PyInit__random(void);
+extern PyObject* PyInit_atexit(void);
+extern PyObject* PyInit__pickle(void);
+extern PyObject* PyInit__bisect(void);
+extern PyObject* PyInit__json(void);
+extern PyObject* PyInit_resource(void);
+extern PyObject* PyInit_binascii(void);
+extern PyObject* PyInit_parser(void);
+extern PyObject* PyInit__codecs_cn(void);
+extern PyObject* PyInit__codecs_hk(void);
+extern PyObject* PyInit__codecs_iso2022(void);
+extern PyObject* PyInit__codecs_jp(void);
+extern PyObject* PyInit__codecs_kr(void);
+extern PyObject* PyInit__codecs_tw(void);
 extern PyObject* PyInit_xxsubtype(void);
 
 /* -- ADDMODULE MARKER 1 -- */
@@ -66,6 +85,25 @@ struct _inittab _PyImport_Inittab[] = {
 	{"_io", PyInit__io},
 	{"zipimport", PyInit_zipimport},
 	{"_symtable", PyInit__symtable},
+	{"array", PyInit_array},
+	{"cmath", PyInit_cmath},
+	{"math", PyInit_math},
+	{"_struct", PyInit__struct},
+	{"_weakref", PyInit__weakref},
+	{"_random", PyInit__random},
+	{"atexit", PyInit_atexit},
+	{"_pickle", PyInit__pickle},
+	{"_bisect", PyInit__bisect},
+	{"_json", PyInit__json},
+	{"resource", PyInit_resource},
+	{"binascii", PyInit_binascii},
+	{"parser", PyInit_parser},
+	{"_codecs_cn", PyInit__codecs_cn},
+	{"_codecs_hk", PyInit__codecs_hk},
+	{"_codecs_iso2022", PyInit__codecs_iso2022},
+	{"_codecs_jp", PyInit__codecs_jp},
+	{"_codecs_kr", PyInit__codecs_kr},
+	{"_codecs_tw", PyInit__codecs_tw},
 	{"xxsubtype", PyInit_xxsubtype},
 
 /* -- ADDMODULE MARKER 2 -- */

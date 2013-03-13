@@ -3,9 +3,8 @@
 SCRIPT=$(readlink -f "$0")
 SCRIPT_PATH=`dirname "$SCRIPT"`
 
-NACL_TOOLCHAIN=${NACL_SDK_ROOT}/toolchain/linux_x86_glibc
-
-export PATH=${PATH}:${NACL_TOOLCHAIN}/bin:
+ZVM_TOOLCHAIN=${ZVM_SDK_ROOT}/bin
+export PATH=${PATH}:${ZVM_TOOLCHAIN}:
 
 export PYTHONHOME=${ZPYTHON_ROOT}:${ZPYTHON_ROOT}/Lib
 export HOSTPYTHON=./hostpython

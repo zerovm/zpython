@@ -14,12 +14,7 @@ void print_subinterp(void)
     );
 }
 
-#ifdef __native_client__
-int zmain(int argc, char **argv)  /*set zrt entry point*/
-#else
 int main(int argc, char **argv)
-#endif
-
 {
     PyThreadState *mainstate, *substate;
 #ifdef WITH_THREAD

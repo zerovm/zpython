@@ -21,7 +21,7 @@
 
 # === Variables set by makesetup ===
 
-MODOBJS=          Modules/signalmodule.o  Modules/posixmodule.o  Modules/errnomodule.o  Modules/pwdmodule.o  Modules/_sre.o  Modules/_codecsmodule.o  Modules/_weakref.o  Modules/_functoolsmodule.o  Modules/operator.o  Modules/_collectionsmodule.o  Modules/itertoolsmodule.o  Modules/_localemodule.o  Modules/_iomodule.o Modules/iobase.o Modules/fileio.o Modules/bytesio.o Modules/bufferedio.o Modules/textio.o Modules/stringio.o  Modules/zipimport.o  Modules/symtablemodule.o  Modules/xxsubtype.o
+MODOBJS=          Modules/signalmodule.o  Modules/posixmodule.o  Modules/errnomodule.o  Modules/pwdmodule.o  Modules/_sre.o  Modules/_codecsmodule.o  Modules/_weakref.o  Modules/_functoolsmodule.o  Modules/operator.o  Modules/_collectionsmodule.o  Modules/itertoolsmodule.o  Modules/_localemodule.o  Modules/_iomodule.o Modules/iobase.o Modules/fileio.o Modules/bytesio.o Modules/bufferedio.o Modules/textio.o Modules/stringio.o  Modules/zipimport.o  Modules/symtablemodule.o  Modules/arraymodule.o  Modules/cmathmodule.o Modules/_math.o  Modules/mathmodule.o Modules/_math.o  Modules/_struct.o  Modules/_weakref.o  Modules/_randommodule.o  Modules/atexitmodule.o  Modules/_pickle.o  Modules/_bisectmodule.o  Modules/_json.o  Modules/resource.o  Modules/binascii.o  Modules/parsermodule.o  Modules/_codecs_cn.o  Modules/_codecs_hk.o  Modules/_codecs_iso2022.o  Modules/_codecs_jp.o  Modules/_codecs_kr.o  Modules/_codecs_tw.o  Modules/xxsubtype.o
 MODLIBS=        $(LOCALMODLIBS) $(BASEMODLIBS)
 
 # === Variables set by configure
@@ -30,7 +30,7 @@ srcdir=		.
 
 
 CC=		x86_64-nacl-gcc
-CXX=		x86_64-naclg++
+CXX=		x86_64-nacl-g++
 MAINCC=		$(CC)
 LINKCC=		$(PURIFY) $(MAINCC)
 AR=		x86_64-nacl-ar
@@ -65,9 +65,9 @@ MAKESETUP=      $(srcdir)/Modules/makesetup
 # Compiler options
 OPT=		-DNDEBUG -g -fwrapv -O3 -Wall -Wstrict-prototypes
 BASECFLAGS=	
-CONFIGURE_CFLAGS=	-I/home/yaroslav/git/zrt/lib
+CONFIGURE_CFLAGS=	-I/home/zvm/zrt/lib 
 CONFIGURE_CPPFLAGS=	
-CONFIGURE_LDFLAGS=	 -s -static -static-libgcc
+CONFIGURE_LDFLAGS=	-s -static /home/zvm/toolchain/out/zvm-sdk/x86_64-nacl/lib64/ldscripts/elf64_nacl.x.static -m64 /home/zvm/zrt/lib/zrt.o -L/home/zvm/zrt/lib -lzrt -lfs -lstdc++
 # Avoid assigning CFLAGS, LDFLAGS, etc. so users can use them on the
 # command line to append to these values without stomping the pre-set
 # values.
@@ -152,7 +152,7 @@ EXEMODE=	755
 FILEMODE=	644
 
 # configure script arguments
-CONFIG_ARGS=	 '--host=x86_64-nacl' '--build=x86_64-linux-gnu' '--prefix=/python' '--without-threads' '--enable-shared=no' 'build_alias=x86_64-linux-gnu' 'host_alias=x86_64-nacl' 'CC=x86_64-nacl-gcc' 'CFLAGS=-I/home/yaroslav/git/zrt/lib' 'LDFLAGS= -s -static -static-libgcc'
+CONFIG_ARGS=	 '--host=x86_64-nacl' '--build=x86_64-linux-gnu' '--prefix=/python' '--without-threads' '--enable-shared=no' '--disable-shared' 'build_alias=x86_64-linux-gnu' 'host_alias=x86_64-nacl' 'CC=x86_64-nacl-gcc' 'CFLAGS=-I/home/zvm/zrt/lib ' 'LDFLAGS=-s -static /home/zvm/toolchain/out/zvm-sdk/x86_64-nacl/lib64/ldscripts/elf64_nacl.x.static -m64 /home/zvm/zrt/lib/zrt.o -L/home/zvm/zrt/lib -lzrt -lfs -lstdc++'
 
 
 # Subdirectories with code
@@ -179,7 +179,7 @@ INSTSONAME=	$(LDLIBRARY)
 
 LIBS=		-ldl  -lutil
 LIBM=		-lm
-LIBC=		-lzglibc
+LIBC=		
 SYSLIBS=	$(LIBM) $(LIBC)
 SHLIBS=		$(LIBS)
 
@@ -199,7 +199,7 @@ PROFILE_TASK=	$(srcdir)/Tools/pybench/pybench.py -n 2 --with-gc --with-syscheck
 
 # === Definitions added by makesetup ===
 
-LOCALMODLIBS=                
+LOCALMODLIBS=                                   
 BASEMODLIBS=
 PYTHONPATH=$(COREPYTHONPATH)
 COREPYTHONPATH=$(DESTPATH)$(SITEPATH)$(TESTPATH)$(MACHDEPPATH)$(EXTRAMACHDEPPATH)
@@ -219,7 +219,8 @@ MODULE_OBJS=	\
 		Modules/config.o \
 		Modules/getpath.o \
 		Modules/main.o \
-		Modules/gcmodule.o
+		Modules/gcmodule.o \
+		Modules/_math.o
 
 # Used of signalmodule.o is not available
 SIGNAL_OBJS=	
@@ -407,17 +408,16 @@ LIBRARY_OBJS=	\
 #########################################################################
 # Rules
 
+# Default target
+all:		build_all
+build_all:	$(BUILDPYTHON) oldsharedmods sharedmods gdbhooks Modules/_testembed
+
 #crosscompile part1: create Host executables
 host: HOSTPGEN=./Parser/pgen
 host: python Parser/pgen
 	mv python hostpython
 	mv Parser/pgen Parser/hostpgen
 	make distclean
-
-
-# Default target
-all:		build_all
-build_all:	$(BUILDPYTHON) oldsharedmods sharedmods gdbhooks Modules/_testembed
 
 # Compile a binary with gcc profile guided optimization.
 profile-opt:
@@ -1399,5 +1399,45 @@ Modules/zipimport.o: $(srcdir)/Modules/zipimport.c; $(CC) $(PY_CORE_CFLAGS)  -c 
 Modules/zipimport$(SO):  Modules/zipimport.o; $(BLDSHARED)  Modules/zipimport.o   -o Modules/zipimport$(SO)
 Modules/symtablemodule.o: $(srcdir)/Modules/symtablemodule.c; $(CC) $(PY_CORE_CFLAGS)  -c $(srcdir)/Modules/symtablemodule.c -o Modules/symtablemodule.o
 Modules/_symtablemodule$(SO):  Modules/symtablemodule.o; $(BLDSHARED)  Modules/symtablemodule.o   -o Modules/_symtablemodule$(SO)
+Modules/arraymodule.o: $(srcdir)/Modules/arraymodule.c; $(CC) $(PY_CORE_CFLAGS)  -c $(srcdir)/Modules/arraymodule.c -o Modules/arraymodule.o
+Modules/arraymodule$(SO):  Modules/arraymodule.o; $(BLDSHARED)  Modules/arraymodule.o   -o Modules/arraymodule$(SO)
+Modules/cmathmodule.o: $(srcdir)/Modules/cmathmodule.c; $(CC) $(PY_CORE_CFLAGS)  -c $(srcdir)/Modules/cmathmodule.c -o Modules/cmathmodule.o
+Modules/_math.o: $(srcdir)/Modules/_math.c; $(CC) $(PY_CORE_CFLAGS)  -c $(srcdir)/Modules/_math.c -o Modules/_math.o
+Modules/cmathmodule$(SO):  Modules/cmathmodule.o Modules/_math.o; $(BLDSHARED)  Modules/cmathmodule.o Modules/_math.o   -o Modules/cmathmodule$(SO)
+Modules/mathmodule.o: $(srcdir)/Modules/mathmodule.c; $(CC) $(PY_CORE_CFLAGS)  -c $(srcdir)/Modules/mathmodule.c -o Modules/mathmodule.o
+Modules/_math.o: $(srcdir)/Modules/_math.c; $(CC) $(PY_CORE_CFLAGS)  -c $(srcdir)/Modules/_math.c -o Modules/_math.o
+Modules/math$(SO):  Modules/mathmodule.o Modules/_math.o; $(BLDSHARED)  Modules/mathmodule.o Modules/_math.o   -o Modules/math$(SO)
+Modules/_struct.o: $(srcdir)/Modules/_struct.c; $(CC) $(PY_CORE_CFLAGS)  -c $(srcdir)/Modules/_struct.c -o Modules/_struct.o
+Modules/_struct$(SO):  Modules/_struct.o; $(BLDSHARED)  Modules/_struct.o   -o Modules/_struct$(SO)
+Modules/_weakref.o: $(srcdir)/Modules/_weakref.c; $(CC) $(PY_CORE_CFLAGS)  -c $(srcdir)/Modules/_weakref.c -o Modules/_weakref.o
+Modules/_weakref$(SO):  Modules/_weakref.o; $(BLDSHARED)  Modules/_weakref.o   -o Modules/_weakref$(SO)
+Modules/_randommodule.o: $(srcdir)/Modules/_randommodule.c; $(CC) $(PY_CORE_CFLAGS)  -c $(srcdir)/Modules/_randommodule.c -o Modules/_randommodule.o
+Modules/_randommodule$(SO):  Modules/_randommodule.o; $(BLDSHARED)  Modules/_randommodule.o   -o Modules/_randommodule$(SO)
+Modules/atexitmodule.o: $(srcdir)/Modules/atexitmodule.c; $(CC) $(PY_CORE_CFLAGS)  -c $(srcdir)/Modules/atexitmodule.c -o Modules/atexitmodule.o
+Modules/atexitmodule$(SO):  Modules/atexitmodule.o; $(BLDSHARED)  Modules/atexitmodule.o   -o Modules/atexitmodule$(SO)
+Modules/_pickle.o: $(srcdir)/Modules/_pickle.c; $(CC) $(PY_CORE_CFLAGS)  -c $(srcdir)/Modules/_pickle.c -o Modules/_pickle.o
+Modules/_pickle$(SO):  Modules/_pickle.o; $(BLDSHARED)  Modules/_pickle.o   -o Modules/_pickle$(SO)
+Modules/_bisectmodule.o: $(srcdir)/Modules/_bisectmodule.c; $(CC) $(PY_CORE_CFLAGS)  -c $(srcdir)/Modules/_bisectmodule.c -o Modules/_bisectmodule.o
+Modules/_bisectmodule$(SO):  Modules/_bisectmodule.o; $(BLDSHARED)  Modules/_bisectmodule.o   -o Modules/_bisectmodule$(SO)
+Modules/_json.o: $(srcdir)/Modules/_json.c; $(CC) $(PY_CORE_CFLAGS)  -c $(srcdir)/Modules/_json.c -o Modules/_json.o
+Modules/_json$(SO):  Modules/_json.o; $(BLDSHARED)  Modules/_json.o   -o Modules/_json$(SO)
+Modules/resource.o: $(srcdir)/Modules/resource.c; $(CC) $(PY_CORE_CFLAGS)  -c $(srcdir)/Modules/resource.c -o Modules/resource.o
+Modules/resource$(SO):  Modules/resource.o; $(BLDSHARED)  Modules/resource.o   -o Modules/resource$(SO)
+Modules/binascii.o: $(srcdir)/Modules/binascii.c; $(CC) $(PY_CORE_CFLAGS)  -c $(srcdir)/Modules/binascii.c -o Modules/binascii.o
+Modules/binascii$(SO):  Modules/binascii.o; $(BLDSHARED)  Modules/binascii.o   -o Modules/binascii$(SO)
+Modules/parsermodule.o: $(srcdir)/Modules/parsermodule.c; $(CC) $(PY_CORE_CFLAGS)  -c $(srcdir)/Modules/parsermodule.c -o Modules/parsermodule.o
+Modules/parsermodule$(SO):  Modules/parsermodule.o; $(BLDSHARED)  Modules/parsermodule.o   -o Modules/parsermodule$(SO)
+Modules/_codecs_cn.o: $(srcdir)/Modules/cjkcodecs/_codecs_cn.c; $(CC) $(PY_CORE_CFLAGS)  -c $(srcdir)/Modules/cjkcodecs/_codecs_cn.c -o Modules/_codecs_cn.o
+Modules/_codecs_cn$(SO):  Modules/_codecs_cn.o; $(BLDSHARED)  Modules/_codecs_cn.o   -o Modules/_codecs_cn$(SO)
+Modules/_codecs_hk.o: $(srcdir)/Modules/cjkcodecs/_codecs_hk.c; $(CC) $(PY_CORE_CFLAGS)  -c $(srcdir)/Modules/cjkcodecs/_codecs_hk.c -o Modules/_codecs_hk.o
+Modules/_codecs_hk$(SO):  Modules/_codecs_hk.o; $(BLDSHARED)  Modules/_codecs_hk.o   -o Modules/_codecs_hk$(SO)
+Modules/_codecs_iso2022.o: $(srcdir)/Modules/cjkcodecs/_codecs_iso2022.c; $(CC) $(PY_CORE_CFLAGS)  -c $(srcdir)/Modules/cjkcodecs/_codecs_iso2022.c -o Modules/_codecs_iso2022.o
+Modules/_codecs_iso2022$(SO):  Modules/_codecs_iso2022.o; $(BLDSHARED)  Modules/_codecs_iso2022.o   -o Modules/_codecs_iso2022$(SO)
+Modules/_codecs_jp.o: $(srcdir)/Modules/cjkcodecs/_codecs_jp.c; $(CC) $(PY_CORE_CFLAGS)  -c $(srcdir)/Modules/cjkcodecs/_codecs_jp.c -o Modules/_codecs_jp.o
+Modules/_codecs_jp$(SO):  Modules/_codecs_jp.o; $(BLDSHARED)  Modules/_codecs_jp.o   -o Modules/_codecs_jp$(SO)
+Modules/_codecs_kr.o: $(srcdir)/Modules/cjkcodecs/_codecs_kr.c; $(CC) $(PY_CORE_CFLAGS)  -c $(srcdir)/Modules/cjkcodecs/_codecs_kr.c -o Modules/_codecs_kr.o
+Modules/_codecs_kr$(SO):  Modules/_codecs_kr.o; $(BLDSHARED)  Modules/_codecs_kr.o   -o Modules/_codecs_kr$(SO)
+Modules/_codecs_tw.o: $(srcdir)/Modules/cjkcodecs/_codecs_tw.c; $(CC) $(PY_CORE_CFLAGS)  -c $(srcdir)/Modules/cjkcodecs/_codecs_tw.c -o Modules/_codecs_tw.o
+Modules/_codecs_tw$(SO):  Modules/_codecs_tw.o; $(BLDSHARED)  Modules/_codecs_tw.o   -o Modules/_codecs_tw$(SO)
 Modules/xxsubtype.o: $(srcdir)/Modules/xxsubtype.c; $(CC) $(PY_CORE_CFLAGS)  -c $(srcdir)/Modules/xxsubtype.c -o Modules/xxsubtype.o
 Modules/xxsubtype$(SO):  Modules/xxsubtype.o; $(BLDSHARED)  Modules/xxsubtype.o   -o Modules/xxsubtype$(SO)

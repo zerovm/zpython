@@ -14,7 +14,8 @@
 /* #undef AIX_GENUINE_CPLUSPLUS */
 
 /* Define if you have the Mach cthreads package */
-/* #undef C_THREADS */
+/* disabled for zpython */
+/*   #undef C_THREADS */
 
 /* Define if C doubles are 64-bit IEEE 754 binary format, stored in ARM
    mixed-endian order (byte order 45670123) */
@@ -29,6 +30,7 @@
 /* #undef DOUBLE_IS_LITTLE_ENDIAN_IEEE754 */
 
 /* Define if --enable-ipv6 is specified */
+/* disabled for zpython */
 /* #undef ENABLE_IPV6 */
 
 /* Define if flock needs to be linked with bsd library. */
@@ -72,9 +74,11 @@
 #define HAVE_BIND_TEXTDOMAIN_CODESET 1
 
 /* Define to 1 if you have the <bluetooth/bluetooth.h> header file. */
+/* disabled for zpython */
 /* #undef HAVE_BLUETOOTH_BLUETOOTH_H */
 
 /* Define to 1 if you have the <bluetooth.h> header file. */
+/* disabled for zpython */
 /* #undef HAVE_BLUETOOTH_H */
 
 /* Define if mbstowcs(NULL, "text", 0) does not return the number of wide
@@ -112,7 +116,8 @@
 #define HAVE_CHROOT 1
 
 /* Define to 1 if you have the `clock' function. */
-#define HAVE_CLOCK 1
+/* disabled for zpython */
+/*  #undef HAVE_CLOCK */
 
 /* Define if the C compiler supports computed gotos. */
 /* #undef HAVE_COMPUTED_GOTOS */
@@ -121,19 +126,23 @@
 #define HAVE_CONFSTR 1
 
 /* Define to 1 if you have the <conio.h> header file. */
-/* #undef HAVE_CONIO_H */
+/* disabled for zpython */
+/*  #undef HAVE_CONIO_H */
 
 /* Define to 1 if you have the `copysign' function. */
 #define HAVE_COPYSIGN 1
 
 /* Define to 1 if you have the `ctermid' function. */
-#define HAVE_CTERMID 1
+/* disabled for zpython */
+/*   #undef HAVE_CTERMID */
 
 /* Define if you have the 'ctermid_r' function. */
-/* #undef HAVE_CTERMID_R */
+/* disabled for zpython */
+/*   #undef HAVE_CTERMID_R */
 
 /* Define to 1 if you have the <curses.h> header file. */
-/* #undef HAVE_CURSES_H */
+/* disabled for zpython */
+/*   #undef HAVE_CURSES_H */
 
 /* Define if you have the 'is_term_resized' function. */
 /* #undef HAVE_CURSES_IS_TERM_RESIZED */
@@ -180,16 +189,19 @@
 #define HAVE_DLFCN_H 1
 
 /* Define to 1 if you have the `dlopen' function. */
+/* it not disabled for zpython due to compilation errors*/
 #define HAVE_DLOPEN 1
 
 /* Define to 1 if you have the `dup2' function. */
 #define HAVE_DUP2 1
 
 /* Defined when any dynamic module loading is enabled. */
-#define HAVE_DYNAMIC_LOADING 1
+/* disabled for zpython */
+/*  #undef HAVE_DYNAMIC_LOADING*/
 
 /* Define if you have the 'epoll' functions. */
-#define HAVE_EPOLL 1
+/* disabled for zpython */
+/*   #undef HAVE_EPOLL */
 
 /* Define to 1 if you have the `erf' function. */
 #define HAVE_ERF 1
@@ -201,7 +213,8 @@
 #define HAVE_ERRNO_H 1
 
 /* Define to 1 if you have the `execv' function. */
-#define HAVE_EXECV 1
+/* disabled for zpython */
+/*   #undef HAVE_EXECV */
 
 /* Define to 1 if you have the `expm1' function. */
 #define HAVE_EXPM1 1
@@ -228,10 +241,12 @@
 #define HAVE_FLOCK 1
 
 /* Define to 1 if you have the `fork' function. */
-/* #undef HAVE_FORK */
+/* disabled for zpython */
+/*   #undef HAVE_FORK */
 
 /* Define to 1 if you have the `forkpty' function. */
-#define HAVE_FORKPTY 1
+/* disabled for zpython */
+/*   #undef HAVE_FORKPTY */
 
 /* Define to 1 if you have the `fpathconf' function. */
 #define HAVE_FPATHCONF 1
@@ -258,7 +273,7 @@
 #define HAVE_FTIME 1
 
 /* Define to 1 if you have the `ftruncate' function. */
-/* #undef HAVE_FTRUNCATE */
+#define HAVE_FTRUNCATE 1
 
 /* Define to 1 if you have the `gai_strerror' function. */
 #define HAVE_GAI_STRERROR 1
@@ -628,28 +643,35 @@
 #define HAVE_SHADOW_H 1
 
 /* Define to 1 if you have the `sigaction' function. */
-/* #undef HAVE_SIGACTION */
+/* disabled for zpython */
+/*   #undef HAVE_SIGACTION */
 
 /* Define to 1 if you have the `siginterrupt' function. */
-#define HAVE_SIGINTERRUPT 1
+/* disabled for zpython */
+/* #undef HAVE_SIGINTERRUPT */
 
 /* Define to 1 if you have the <signal.h> header file. */
+/* it not disabled for zpython due to compilation errors*/
 #define HAVE_SIGNAL_H 1
 
 /* Define to 1 if you have the `sigrelse' function. */
-#define HAVE_SIGRELSE 1
+/* disabled for zpython */
+/* #undef HAVE_SIGRELSE */
 
 /* Define to 1 if you have the `snprintf' function. */
 #define HAVE_SNPRINTF 1
 
 /* Define if sockaddr has sa_len member */
+/* disabled for zpython */
 /* #undef HAVE_SOCKADDR_SA_LEN */
 
 /* struct sockaddr_storage (sys/socket.h) */
-#define HAVE_SOCKADDR_STORAGE 1
+/* disabled for zpython */
+/* #undef HAVE_SOCKADDR_STORAGE */
 
 /* Define if you have the 'socketpair' function. */
-#define HAVE_SOCKETPAIR 1
+/* disabled for zpython */
+/* #undef HAVE_SOCKETPAIR */
 
 /* Define to 1 if you have the <spawn.h> header file. */
 #define HAVE_SPAWN_H 1
@@ -729,9 +751,11 @@
 #define HAVE_SYSEXITS_H 1
 
 /* Define to 1 if you have the <sys/audioio.h> header file. */
+/* disabled for zpython */
 /* #undef HAVE_SYS_AUDIOIO_H */
 
 /* Define to 1 if you have the <sys/bsdtty.h> header file. */
+/* disabled for zpython */
 /* #undef HAVE_SYS_BSDTTY_H */
 
 /* Define to 1 if you have the <sys/dir.h> header file, and it defines `DIR'.
@@ -754,6 +778,7 @@
 /* #undef HAVE_SYS_LOCK_H */
 
 /* Define to 1 if you have the <sys/mkdev.h> header file. */
+/* disabled for zpython */
 /* #undef HAVE_SYS_MKDEV_H */
 
 /* Define to 1 if you have the <sys/modem.h> header file. */
@@ -824,6 +849,7 @@
 #define HAVE_TGAMMA 1
 
 /* Define to 1 if you have the <thread.h> header file. */
+/* disabled for zpython */
 /* #undef HAVE_THREAD_H */
 
 /* Define to 1 if you have the `timegm' function. */
@@ -846,7 +872,7 @@
 #define HAVE_TM_ZONE 1
 
 /* Define to 1 if you have the `truncate' function. */
-/* #undef HAVE_TRUNCATE */
+#define HAVE_TRUNCATE 1
 
 /* Define to 1 if you don't have `tm_zone' but do have the external array
    `tzname'. */
@@ -1001,7 +1027,7 @@
 /* The size of `int', as computed by sizeof. */
 #define SIZEOF_INT 4
 
-#ifdef __NACL__
+#ifdef __native_client__
 /**************************************************************************
 YaroslavLitvinov 
 ***************************GoogleNatieClient support */
@@ -1012,7 +1038,7 @@ YaroslavLitvinov
 #define SIZEOF_LONG 4
 /* The size of `long long', as computed by sizeof. */
 #define SIZEOF_LONG_LONG 8
-#endif //__NACL__
+#endif //__native_client__
 
 /* The size of `long double', as computed by sizeof. */
 #define SIZEOF_LONG_DOUBLE 8

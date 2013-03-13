@@ -20,11 +20,7 @@ extern wchar_t* _Py_DecodeUTF8_surrogateescape(const char *s, Py_ssize_t size);
 #endif
 
 int
-#ifdef __native_client__
-zmain(int argc, char **argv)    /*set zrt entry point*/
-#else
 main(int argc, char **argv)
-#endif
 {
     wchar_t **argv_copy = (wchar_t **)PyMem_Malloc(sizeof(wchar_t*)*argc);
     /* We need a second copies, as Python might modify the first one. */
