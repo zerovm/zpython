@@ -596,6 +596,8 @@ PyDoc_STRVAR(strptime_doc,
 Parse a string to a time tuple according to a format specification.\n\
 See the library reference manual for formatting codes (same as strftime()).");
 
+#pragma GCC push_options
+#pragma GCC optimize ("O0")
 static PyObject *
 _asctime(struct tm *timeptr)
 {
@@ -610,7 +612,6 @@ _asctime(struct tm *timeptr)
     };
     char buf[20]; /* 'Sun Sep 16 01:03:52\0' */
     int n;
-
     n = PyOS_snprintf(buf, sizeof(buf), "%.3s %.3s%3d %.2d:%.2d:%.2d",
                       wday_name[timeptr->tm_wday],
                       mon_name[timeptr->tm_mon],
@@ -627,6 +628,7 @@ _asctime(struct tm *timeptr)
 
     return PyUnicode_FromFormat("%s %d", buf, 1900 + timeptr->tm_year);
 }
+#pragma GCC pop_options
 
 static PyObject *
 time_asctime(PyObject *self, PyObject *args)

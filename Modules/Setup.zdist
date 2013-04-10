@@ -171,7 +171,7 @@ math mathmodule.c _math.c # -lm # math library functions, e.g. sin()
 ###
 _struct _struct.c	# binary structure packing/unpacking
 
-#time timemodule.c # -lm # time operations and variables
+time _time.c timemodule.c # -lm # time operations and variables
 _weakref _weakref.c	# basic weak reference support
 #_testcapi _testcapimodule.c    # Python C API test module
 ###
@@ -182,7 +182,7 @@ atexit atexitmodule.c      # Register functions to be run at interpreter-shutdow
 
 #_elementtree -I$(srcdir)/Modules/expat -DHAVE_EXPAT_CONFIG_H -DUSE_PYEXPAT_CAPI _elementtree.c	# elementtree accelerator
 _pickle _pickle.c	# pickle accelerator
-#_datetime _datetimemodule.c	# datetime accelerator
+_datetime _datetimemodule.c _time.c	# datetime accelerator
 _bisect _bisectmodule.c	# Bisection algorithms
 ###_heapq _heapqmodule.c	# Heap queue algorithm
 
