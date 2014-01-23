@@ -1,9 +1,11 @@
+# ZPython
+
 CPython can be build for ZRT using cross-compilation.
 in order to build python for zrt - run bash scripts:
 
-sh 1build_pgen.sh  
-sh 2configure_zpython.sh  
-sh 3build_zpython_statically.sh
+`sh 1build_pgen.sh`
+`sh 2configure_zpython.sh`
+`sh 3build_zpython_statically.sh`
 
 Implementation notes:
 (*) While running python scripts it's significant to use seekable source types, it's needed
